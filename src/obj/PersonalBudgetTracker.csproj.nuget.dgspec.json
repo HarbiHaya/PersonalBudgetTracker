@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/haya/Desktop/PersonalBudgetTracker/src/PersonalBudgetTracker.csproj": {}
+    "/Users/haya/Desktop/Desktop - Haya’s MacBook Pro/fall '25/PersonalBudgetTracker/src/PersonalBudgetTracker.csproj": {}
   },
   "projects": {
-    "/Users/haya/Desktop/PersonalBudgetTracker/src/PersonalBudgetTracker.csproj": {
+    "/Users/haya/Desktop/Desktop - Haya’s MacBook Pro/fall '25/PersonalBudgetTracker/src/PersonalBudgetTracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/haya/Desktop/PersonalBudgetTracker/src/PersonalBudgetTracker.csproj",
+        "projectUniqueName": "/Users/haya/Desktop/Desktop - Haya’s MacBook Pro/fall '25/PersonalBudgetTracker/src/PersonalBudgetTracker.csproj",
         "projectName": "PersonalBudgetTracker",
-        "projectPath": "/Users/haya/Desktop/PersonalBudgetTracker/src/PersonalBudgetTracker.csproj",
+        "projectPath": "/Users/haya/Desktop/Desktop - Haya’s MacBook Pro/fall '25/PersonalBudgetTracker/src/PersonalBudgetTracker.csproj",
         "packagesPath": "/Users/haya/.nuget/packages/",
-        "outputPath": "/Users/haya/Desktop/PersonalBudgetTracker/src/obj/",
+        "outputPath": "/Users/haya/Desktop/Desktop - Haya’s MacBook Pro/fall '25/PersonalBudgetTracker/src/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/haya/.nuget/NuGet/NuGet.Config"
