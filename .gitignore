@@ -1,0 +1,9 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.csproj.user
+.DS_Store
+src/BudgetData/budget_data.csv
+
