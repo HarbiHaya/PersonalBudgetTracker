@@ -35,13 +35,9 @@ namespace PersonalBudgetTracker
         private static void ShowWelcomeMessage()
         {
             InputHelper.ClearScreen();
-            Console.WriteLine("╔" + new string('═', 60) + "╗");
-            Console.WriteLine("║" + " PERSONAL BUDGET TRACKER".PadLeft(41).PadRight(60) + "║");
-            Console.WriteLine("║" + " Student Team Project - C# Programming".PadLeft(48).PadRight(60) + "║");
-            Console.WriteLine("╚" + new string('═', 60) + "╝");
-            Console.WriteLine();
+            Console.WriteLine("PERSONAL BUDGET TRACKER");
+            Console.WriteLine("-------------------------");
             Console.WriteLine("Welcome to your Personal Budget Tracker!");
-            Console.WriteLine("This program helps you manage your money by tracking income and expenses.");
             Console.WriteLine();
             
             InputHelper.PauseForUser("Loading your budget data...");
@@ -81,19 +77,18 @@ namespace PersonalBudgetTracker
         private static void ShowMainMenu()
         {
             InputHelper.ClearScreen();
-            Console.WriteLine("╔" + new string('═', 50) + "╗");
-            Console.WriteLine("║" + " MAIN MENU".PadLeft(29).PadRight(50) + "║");
-            Console.WriteLine("╠" + new string('═', 50) + "╣");
-            Console.WriteLine("║ 1. Add Income                              ║");
-            Console.WriteLine("║ 2. Add Expense                             ║");
-            Console.WriteLine("║ 3. View Transactions by Date Range        ║");
-            Console.WriteLine("║ 4. Monthly Category Summary                ║");
-            Console.WriteLine("║ 5. Set Monthly Budget Limit                ║");
-            Console.WriteLine("║ 6. View Current Balance                    ║");
-            Console.WriteLine("║ 7. View All Transactions                  ║");
-            Console.WriteLine("║ 8. Save and Exit                          ║");
-            Console.WriteLine("╚" + new string('═', 50) + "╝");
-            Console.WriteLine();
+            Console.WriteLine("---------------------------------------");
+            Console.WriteLine("               MAIN MENU");
+            Console.WriteLine("---------------------------------------");
+            Console.WriteLine("1. Add Income");
+            Console.WriteLine("2. Add Expense");
+            Console.WriteLine("3. View Transactions by Date Range");
+            Console.WriteLine("4. Monthly Category Summary");
+            Console.WriteLine("5. Set Monthly Budget Limit");
+            Console.WriteLine("6. View Current Balance");
+            Console.WriteLine("7. View All Transactions ");
+            Console.WriteLine("8. Save and Exit ");
+            Console.WriteLine("---------------------------------------");
         }
 
         // Process the user's menu choice
@@ -274,27 +269,10 @@ namespace PersonalBudgetTracker
         // Display goodbye message when program ends
         private static void ShowGoodbyeMessage()
         {
-            Console.WriteLine();
-            Console.WriteLine("╔" + new string('═', 50) + "╗");
-            Console.WriteLine("║" + " THANK YOU FOR USING BUDGET TRACKER!".PadLeft(43).PadRight(50) + "║");
-            Console.WriteLine("╚" + new string('═', 50) + "╝");
-            Console.WriteLine();
-            Console.WriteLine("Your financial data has been saved safely.");
-            Console.WriteLine("Remember to check your budget regularly!");
-            Console.WriteLine();
+            Console.WriteLine("THANK YOU FOR USING BUDGET TRACKER!");
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
 
-        // Additional helper method for advanced users
-        private static void ShowDeveloperInfo()
-        {
-            Console.WriteLine("\n=== DEVELOPMENT TEAM ===");
-            Console.WriteLine("Developer 1: Transaction Models (Transaction.cs)");
-            Console.WriteLine("Developer 2: File Operations (FileHelper.cs)");
-            Console.WriteLine("Developer 3: Input Validation (InputHelper.cs)");
-            Console.WriteLine("Developer 4: Budget Logic (BudgetManager.cs)");
-            Console.WriteLine("Developer 5: User Interface (Program.cs)");
-        }
     }
 }

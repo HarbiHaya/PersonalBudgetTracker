@@ -246,12 +246,10 @@ namespace PersonalBudgetTracker
 
             if (monthlyExpenses > monthlyBudgetLimit)
             {
-                Console.WriteLine("\n" + new string('!', 50));
-                Console.WriteLine("*** WARNING: MONTHLY BUDGET EXCEEDED! ***");
+                Console.WriteLine("!!!! MONTHLY BUDGET EXCEEDED !!!!");
                 Console.WriteLine($"Budget Limit: ${monthlyBudgetLimit:F2}");
                 Console.WriteLine($"Current Expenses: ${monthlyExpenses:F2}");
                 Console.WriteLine($"Over Budget by: ${(monthlyExpenses - monthlyBudgetLimit):F2}");
-                Console.WriteLine(new string('!', 50));
             }
             else
             {
@@ -315,7 +313,7 @@ namespace PersonalBudgetTracker
             }
             else if (currentBalance < 0)
             {
-                Console.WriteLine("Warning: You have a negative balance!");
+                Console.WriteLine("Warning! You have a negative balance!");
             }
             else
             {
