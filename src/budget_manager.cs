@@ -1,9 +1,5 @@
 /*
- * BudgetManager.cs - Core Budget Logic
- * Developer 4: Budget Management and Calculations
- * 
- * Responsibility: Manage all budget operations, calculations, and reports
- * This class handles the main business logic of tracking income and expenses
+Checing for pushes line 2
  */
 
 using System;
@@ -22,6 +18,7 @@ namespace PersonalBudgetTracker
         
         // File helper for saving and loading data
         private FileHelper fileHelper;
+
 
         // Constructor - sets up the budget manager
         public BudgetManager()
