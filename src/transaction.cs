@@ -4,22 +4,21 @@
  */
 
 using System;
-// Shahad Abdullah
+
 namespace PersonalBudgetTracker
 {
     // Base class for all financial transactions
-    // This shows inheritance - other classes will inherit from this one
+    // expense & income classes will inherit from this one
     public class Transaction
     {
-        // Basic properties to store transaction information
-        // These are the common fields that all transactions need
+        // Basic properties to store transaction details
         public DateTime TransactionDate { get; set; }
         public string Description { get; set; }
         public decimal Amount { get; set; }
         public string Category { get; set; }
         public string TransactionType { get; set; }
 
-        // Constructor - runs when we create a new transaction
+        // Default constructor 
         public Transaction()
         {
             TransactionDate = DateTime.Now;
@@ -29,7 +28,7 @@ namespace PersonalBudgetTracker
             TransactionType = "";
         }
 
-        // Constructor with parameters - allows us to set values when creating
+        // Constructor with parameters to let us set values when creating an object
         public Transaction(DateTime date, string description, decimal amount, string category, string type)
         {
             TransactionDate = date;
@@ -39,7 +38,7 @@ namespace PersonalBudgetTracker
             TransactionType = type;
         }
 
-        // Method to display transaction information in a readable format
+        // Method; displays transaction details in a readable format
         public void ShowTransaction()
         {
             Console.WriteLine("--- Transaction Details ---");
@@ -51,13 +50,13 @@ namespace PersonalBudgetTracker
             Console.WriteLine("---------------------------");
         }
 
-        // Method to convert transaction to a simple string format for saving
+        // Method; converts transaction to a simple string format for saving (like in CSV)
         public string ConvertToString()
         {
             return $"{TransactionDate:dd/MM/yyyy},{TransactionType},{Description},{Amount:F2},{Category}";
         }
 
-        // Method to check if this transaction matches a specific month and year
+        // Method; checks if this transaction matches a specific month and year
         public bool IsFromMonth(int month, int year)
         {
             if (TransactionDate.Month == month && TransactionDate.Year == year)
@@ -70,7 +69,7 @@ namespace PersonalBudgetTracker
             }
         }
 
-        // Method to check if transaction is within a date range
+        // Method; checks if a transaction is within a specific date range
         public bool IsInDateRange(DateTime startDate, DateTime endDate)
         {
             if (TransactionDate >= startDate && TransactionDate <= endDate)
@@ -84,48 +83,50 @@ namespace PersonalBudgetTracker
         }
     }
 
-    // Income class - inherits from Transaction
-    // This represents money coming in (salary, gifts, etc.)
+    // Income class, inherits from Transaction
+    // for money coming in (salary, gifts,...)
     public class Income : Transaction
     {
-        // Constructor for Income - calls the parent constructor
+        // default constructor for Income
+        // calls the parent constructor
         public Income() : base()
         {
             TransactionType = "Income";
         }
 
-        // Constructor with parameters
+        // income constructor with parameters
         public Income(DateTime date, string description, decimal amount, string category) 
             : base(date, description, amount, category, "Income")
         {
             // The base constructor already sets everything we need
         }
 
-        // Special method just for income transactions
+        // method to show income transactions details
         public void ShowIncomeDetails()
         {
             Console.WriteLine($"+ INCOME: {Description} - ${Amount:F2} ({Category})");
         }
     }
 
-    // Expense class - inherits from Transaction  
-    // This represents money going out (food, rent, entertainment, etc.)
+    // Expense class, inherits from Transaction  
+    // for money going out (food, rent, entertainment,...)
     public class Expense : Transaction
     {
-        // Constructor for Expense - calls the parent constructor
+        // default constructor for Expense
+        // calls the parent constructor
         public Expense() : base()
         {
             TransactionType = "Expense";
         }
 
-        // Constructor with parameters
+        // expense constructor with parameters
         public Expense(DateTime date, string description, decimal amount, string category) 
             : base(date, description, amount, category, "Expense")
         {
             // The base constructor already sets everything we need
         }
 
-        // Special method just for expense transactions
+        // method to show expense transactions details
         public void ShowExpenseDetails()
         {
             Console.WriteLine($"- EXPENSE: {Description} - ${Amount:F2} ({Category})");
