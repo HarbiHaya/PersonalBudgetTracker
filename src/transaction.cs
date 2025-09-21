@@ -1,8 +1,5 @@
 /*
- * Transaction.cs - Base Transaction Class
- * Developer 1: Transaction Models and Core Data Structures
- * 
- * Responsibility: Create the foundation classes for all financial transactions
+ * Shahad Abdullah
  * This file contains the base Transaction class and its derived Income/Expense classes
  */
 
