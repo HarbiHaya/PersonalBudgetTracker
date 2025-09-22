@@ -1,8 +1,9 @@
 /*
-Checing for pushes line 2
- */
+ Jana Ashraf Alharbi
+ 2305762
+ Section [AA]
 
-// test
+ */
 
 using System;
 
@@ -27,7 +28,7 @@ namespace PersonalBudgetTracker
         {
             // Set maximum number of transactions we can store
             maxTransactions = 500;
-            allTransactions = new Transaction[maxTransactions]; //
+            allTransactions = new Transaction[maxTransactions]; 
             transactionCount = 0;
             monthlyBudgetLimit = 0;
             
