@@ -194,17 +194,10 @@ namespace PersonalBudgetTracker
         }
 
 
-
-
-
-
-        // Get a valid year from the user (reasonable range)
+        // Get a valid year 
         public static int GetValidYear(string promptMessage)
         {
-            int currentYear = DateTime.Now.Year;
-            int earliestYear = currentYear - 10;  // 10 years ago
-            int latestYear = currentYear + 1;     // Next year
-
+           
             Console.Write(promptMessage);
 
             while (true)
@@ -212,26 +205,21 @@ namespace PersonalBudgetTracker
                 try
                 {
                     string userInput = Console.ReadLine();
-                    
+
                     if (string.IsNullOrEmpty(userInput))
                     {
-                        Console.Write($"Please enter a year between {earliestYear} and {latestYear}: ");
+                        Console.Write("Please enter a valid year: ");
                         continue;
                     }
 
                     int year = int.Parse(userInput);
 
-                    if (year < earliestYear || year > latestYear)
-                    {
-                        Console.Write($"Year must be between {earliestYear} and {latestYear}. Try again: ");
-                        continue;
-                    }
-
                     return year;
                 }
                 catch (Exception)
                 {
-                    Console.Write($"Invalid year. Please enter {earliestYear}-{latestYear}: ");
+                    Console.Write($"something went wrong. Please enter a valid year: ");
+                   
                 }
             }
         }

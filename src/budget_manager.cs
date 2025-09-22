@@ -1,10 +1,8 @@
 /*
- * BudgetManager.cs - Core Budget Logic
- * Developer 4: Budget Management and Calculations
- * 
- * Responsibility: Manage all budget operations, calculations, and reports
- * This class handles the main business logic of tracking income and expenses
+Checing for pushes line 2
  */
+
+// test
 
 using System;
 
@@ -22,6 +20,7 @@ namespace PersonalBudgetTracker
         
         // File helper for saving and loading data
         private FileHelper fileHelper;
+
 
         // Constructor - sets up the budget manager
         public BudgetManager()
@@ -249,12 +248,10 @@ namespace PersonalBudgetTracker
 
             if (monthlyExpenses > monthlyBudgetLimit)
             {
-                Console.WriteLine("\n" + new string('!', 50));
-                Console.WriteLine("*** WARNING: MONTHLY BUDGET EXCEEDED! ***");
+                Console.WriteLine("!!!! MONTHLY BUDGET EXCEEDED !!!!");
                 Console.WriteLine($"Budget Limit: ${monthlyBudgetLimit:F2}");
                 Console.WriteLine($"Current Expenses: ${monthlyExpenses:F2}");
                 Console.WriteLine($"Over Budget by: ${(monthlyExpenses - monthlyBudgetLimit):F2}");
-                Console.WriteLine(new string('!', 50));
             }
             else
             {
@@ -318,7 +315,7 @@ namespace PersonalBudgetTracker
             }
             else if (currentBalance < 0)
             {
-                Console.WriteLine("Warning: You have a negative balance!");
+                Console.WriteLine("Warning! You have a negative balance!");
             }
             else
             {
