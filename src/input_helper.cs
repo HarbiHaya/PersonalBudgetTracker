@@ -45,41 +45,41 @@ namespace PersonalBudgetTracker
             return DateTime.Now; 
         }
 
-        // Get a valid positive amount of money from the user
+
+
+
+        // Asks the user to enter a valid decimal amount
+        // and keeps retrying until the input is correct
         public static decimal GetValidAmount(string promptMessage)
         {
             decimal validAmount;
             bool inputIsValid = false;
 
-            // Show the user what we want
             Console.Write(promptMessage);
 
-            // Keep asking until we get valid input
             while (inputIsValid == false)
             {
                 try
                 {
-                    // Get input from user
                     string userInput = Console.ReadLine();
                     
-                    // Check if user entered something
                     if (string.IsNullOrEmpty(userInput))
                     {
                         Console.Write("Please enter an amount. Try again: ");
                         continue;
                     }
 
-                    // Try to convert the input to a decimal number
+                    // Convert the input to a decimal number
                     validAmount = decimal.Parse(userInput); 
 
-                    // Check if the amount is positive (greater than zero)
+                    // Check if the amount is positive
                     if (validAmount <= 0)
                     {
                         Console.Write("Amount must be greater than zero. Please try again: ");
                         continue;
                     }
 
-                    // If we get here, the amount is valid
+                    //At this point, the entered amount  is valid
                     inputIsValid = true;
                     return validAmount;
                 }
@@ -96,10 +96,11 @@ namespace PersonalBudgetTracker
                     Console.Write("Something went wrong. Please enter a valid amount: ");
                 }
             }
-
-            // This line should never run, but needed for the compiler
             return 0;
         }
+
+
+
 
         // Get non-empty text from the user
         public static string GetValidText(string promptMessage)
