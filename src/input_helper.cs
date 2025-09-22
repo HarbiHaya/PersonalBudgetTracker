@@ -1,59 +1,47 @@
-/*
- * InputHelper.cs - User Input Validation
- * Developer 3: Input Validation and Error Prevention
- * 
- * Responsibility: Get valid input from users and prevent crashes from bad data
- * This class ensures all user input is clean and safe to use
- */
-
 using System;
 // Shahad Alamoudi
 namespace PersonalBudgetTracker
 {
     public class InputHelper
     {
-        // Get a valid date from the user in dd/MM/yyyy format
+        //Ask the user to enter a date in dd/MM/yyyy format
+        //and keeps asking until a valid date is entered
         public static DateTime GetValidDate(string promptMessage)
         {
             DateTime validDate;
             bool inputIsValid = false;
 
-            // Show the user what we want
+            
             Console.Write(promptMessage);
 
-            // Keep asking until we get valid input
             while (inputIsValid == false)
             {
                 try
                 {
-                    // Get input from user
                     string userInput = Console.ReadLine();
-                    
-                    // Check if user entered something
+
                     if (string.IsNullOrEmpty(userInput))
                     {
                         Console.Write("Please enter a date. Try again: ");
                         continue;
                     }
 
-                    // Try to convert the input to a date in the correct format
-                    validDate = DateTime.ParseExact(userInput, "dd/MM/yyyy", null); /// 8/7/2034
-                    
-                    // If we get here, the date is valid
+                    // convert the input text to a date in dd/MM/yyyy format
+                    validDate = DateTime.ParseExact(userInput, "dd/MM/yyyy", null);
+
+                    //At this point, the entered date is valid
                     inputIsValid = true;
                     return validDate;
                 }
                 catch (FormatException)
                 {
-                    Console.Write("Date format is wrong. Please use dd/MM/yyyy (e.g., 25/12/2023): ");
+                    Console.Write("Date format is wrong. Please use dd/MM/yyyy (e.g., 05/02/2023): ");
                 }
                 catch (Exception)
                 {
                     Console.Write("Something went wrong. Please enter date as dd/MM/yyyy: ");
                 }
             }
-
-            // This line should never run, but needed for the compiler
             return DateTime.Now; 
         }
 
