@@ -49,7 +49,7 @@ namespace PersonalBudgetTracker
 
 
         // Asks the user to enter a valid decimal amount
-        // and keeps retrying until the input is correct
+        // and keeps trying until the input is correct
         public static decimal GetValidAmount(string promptMessage)
         {
             decimal validAmount;
@@ -102,19 +102,17 @@ namespace PersonalBudgetTracker
 
 
 
-        // Get non-empty text from the user
+        //Asks the user to enter non-empty text
+        //and keeps trying until valid input is provided
         public static string GetValidText(string promptMessage)
         {
             string validText;
             bool inputIsValid = false;
 
-            // Show the user what we want
             Console.Write(promptMessage);
 
-            // Keep asking until we get valid input
             while (inputIsValid == false)
             {
-                // Get input from user
                 validText = Console.ReadLine();
 
                 // Check if user entered something meaningful
@@ -133,15 +131,16 @@ namespace PersonalBudgetTracker
                     Console.Write("Please enter some actual text: ");
                     continue;
                 }
-
-                // If we get here, the text is valid
+                //At this point,  the text is valid
                 inputIsValid = true;
                 return validText;
             }
-
-            // This line should never run, but needed for the compiler
             return "";
         }
+
+
+
+
 
         // Get a valid menu choice number from the user
         public static int GetValidMenuChoice(string promptMessage, int lowestNumber, int highestNumber) // 
