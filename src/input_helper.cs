@@ -141,22 +141,18 @@ namespace PersonalBudgetTracker
 
 
 
-
-        // Get a valid menu choice number from the user
+        // Check if the user's choice is in range
         public static int GetValidMenuChoice(string promptMessage, int lowestNumber, int highestNumber) // 
         {
             int validChoice;
             bool inputIsValid = false;
 
-            // Show the user what we want
             Console.Write(promptMessage);
 
-            // Keep asking until we get valid input
             while (inputIsValid == false)
             {
                 try
                 {
-                    // Get input from user
                     string userInput = Console.ReadLine();
                     
                     // Check if user entered something
@@ -169,14 +165,15 @@ namespace PersonalBudgetTracker
                     // Try to convert the input to an integer
                     validChoice = int.Parse(userInput);
 
-                    // Check if the choice is within the valid range
+                    // Check if the choice is between lowest and highest
+
                     if (validChoice < lowestNumber || validChoice > highestNumber)
                     {
                         Console.Write($"Please choose a number between {lowestNumber} and {highestNumber}: ");
                         continue;
                     }
 
-                    // If we get here, the choice is valid
+                    // At this point, the choice is valid
                     inputIsValid = true;
                     return validChoice;
                 }
@@ -193,10 +190,13 @@ namespace PersonalBudgetTracker
                     Console.Write($"Something went wrong. Please enter {lowestNumber}-{highestNumber}: ");
                 }
             }
-
-            // This line should never run, but needed for the compiler
             return 0;
         }
+
+
+
+
+
 
         // Get a valid year from the user (reasonable range)
         public static int GetValidYear(string promptMessage)
