@@ -1,12 +1,7 @@
-﻿/*
- * Program.cs - Main Application Controller
- * Developer 5: User Interface and Application Flow
- * 
- * Responsibility: Control the main program flow and coordinate all other components
- * This class manages the menu system and user interactions
- */
-
-// test mayarm nj
+﻿//mayar abdullah mahfouz
+//id:2306450
+//هدا main حق الكود 
+//وظيفه الملف هدا يعرض واجهه المستخدم ويستقبل الاوامر من المستخدم وينفذ العمليات 
 
 using System;
 
@@ -14,26 +9,22 @@ namespace PersonalBudgetTracker
 {
     public class Program
     {
-        // Main budget manager that handles all the business logic
+        // هنا أنا أتعامل مع كل شيء له علاقة بحساب الميزانية وتنظيمها
         private static BudgetManager budgetManager;
-
-        // Main entry point - this runs when the program starts
         public static void Main()
         {
-            // Show welcome message
+            // هنا بنعرض رسالة ترحيب للمستخدم
             ShowWelcomeMessage();
+
             
-            // Set up the budget manager
             budgetManager = new BudgetManager();
+        
+            RunMainProgramLoop(); // ميثود لوب البرنامح 
             
-            // Run the main program loop
-            RunMainProgramLoop();
-            
-            // Show goodbye message when user exits
+            // يعرضلي رساله توديعيه لمن اطلع من البرنامج
             ShowGoodbyeMessage();
         }
-
-        // Display welcome message and program information
+        // أرحب بالمستخدم وأشرح له فكرة البرنامج قبل يبدأ يستخدمه
         private static void ShowWelcomeMessage()
         {
             InputHelper.ClearScreen();
@@ -44,38 +35,32 @@ namespace PersonalBudgetTracker
             
             InputHelper.PauseForUser("Loading your budget data...");
         }
-
-        // Main program loop - keeps running until user chooses to exit
+        // هنا يقعد البرنامج يشتغل ويعرض القوائم لين المستخدم يقرر يطلع
         private static void RunMainProgramLoop()
         {
             bool userWantsToExit = false;
 
-            // Keep showing menu until user decides to quit
             while (userWantsToExit == false)
             {
-                // Show the main menu
                 ShowMainMenu();
-                
-                // Get user's choice
+
                 int userChoice = InputHelper.GetValidMenuChoice("Enter your choice (1-8): ", 1, 8);
                 
-                // Process the user's choice
                 ProcessMenuChoice(userChoice);
                 
-                // Check if user wants to exit
+                // هنا اليوزر ادا اختار 8 يخرج
                 if (userChoice == 8)
                 {
                     userWantsToExit = true;
                 }
                 else
                 {
-                    // Pause before showing menu again
+                    // عشان يرجعني لي القائمه enter ينتظر من اليوزر 
                     InputHelper.PauseForUser("\nOperation completed.");
                 }
             }
         }
-
-        // Display the main menu options
+        // اعرض خيارات القائمة اللي يختار منها المستخدم
         private static void ShowMainMenu()
         {
             InputHelper.ClearScreen();
@@ -92,11 +77,9 @@ namespace PersonalBudgetTracker
             Console.WriteLine("8. Save and Exit ");
             Console.WriteLine("---------------------------------------");
         }
-
-        // Process the user's menu choice
+        // اسوي الشي الي طلبه المستخدم الي اختاره من القائمه 
         private static void ProcessMenuChoice(int choice)
         {
-            // Use if-else statements to handle each menu option
             if (choice == 1)
             {
                 HandleAddIncome();
@@ -130,146 +113,118 @@ namespace PersonalBudgetTracker
                 HandleSaveAndExit();
             }
         }
-
-        // Handle adding a new income transaction
+        // المستخدم يدخل معلومات الدخل
         private static void HandleAddIncome()
         {
             InputHelper.ClearScreen();
             Console.WriteLine("=== ADD NEW INCOME ===");
             Console.WriteLine();
-            
-            // Get all the required information from user
             DateTime incomeDate = InputHelper.GetValidDate("Enter date (dd/MM/yyyy): ");
             string incomeDescription = InputHelper.GetValidText("Enter description (e.g., 'Salary', 'Gift'): ");
             decimal incomeAmount = InputHelper.GetValidAmount("Enter amount ($): ");
             string incomeCategory = InputHelper.GetValidText("Enter category (e.g., 'Job', 'Family', 'Investment'): ");
-            
-            // Add the income using our budget manager
             budgetManager.AddNewIncome(incomeDate, incomeDescription, incomeAmount, incomeCategory);
         }
-
-        // Handle adding a new expense transaction
+        // المستخدم يدخل معلومات المصاريف 
         private static void HandleAddExpense()
         {
             InputHelper.ClearScreen();
             Console.WriteLine("=== ADD NEW EXPENSE ===");
             Console.WriteLine();
-            
-            // Get all the required information from user
             DateTime expenseDate = InputHelper.GetValidDate("Enter date (dd/MM/yyyy): ");
             string expenseDescription = InputHelper.GetValidText("Enter description (e.g., 'Groceries', 'Gas'): ");
             decimal expenseAmount = InputHelper.GetValidAmount("Enter amount ($): ");
-            string expenseCategory = InputHelper.GetValidText("Enter category (e.g., 'Food', 'Transport', 'Entertainment'): ");
-            
-            // Add the expense using our budget manager
+            string expenseCategory = InputHelper.GetValidText("Enter category (e.g., 'Food', 'Transport', 'Entertainment'): "); 
             budgetManager.AddNewExpense(expenseDate, expenseDescription, expenseAmount, expenseCategory);
         }
-
-        // Handle viewing transactions within a date range
+        // اغرض العمليات في فترة يحددها المستخذم
         private static void HandleViewTransactionsByDate()
         {
             InputHelper.ClearScreen();
             Console.WriteLine("=== VIEW TRANSACTIONS BY DATE RANGE ===");
             Console.WriteLine();
-            
-            // Get the date range from user
             DateTime startDate = InputHelper.GetValidDate("Enter start date (dd/MM/yyyy): ");
             DateTime endDate = InputHelper.GetValidDate("Enter end date (dd/MM/yyyy): ");
             
-            // Make sure end date is not before start date
             if (endDate < startDate)
             {
                 Console.WriteLine("End date cannot be earlier than start date!");
                 return;
             }
             
-            // Show the transactions in this date range
+            // نعرض العمليات اللي صارت في الفترة هذي
             budgetManager.ShowTransactionsInDateRange(startDate, endDate);
         }
 
-        // Handle showing monthly category summary
+        // نوري المستخدم ملخص الصرفيات حقت الشهر
         private static void HandleMonthlyCategorySummary()
         {
             InputHelper.ClearScreen();
             Console.WriteLine("=== MONTHLY CATEGORY SUMMARY ===");
             Console.WriteLine();
-            
-            // Get the month and year from user
             int year = InputHelper.GetValidYear("Enter year: ");
             int month = InputHelper.GetValidMonth("Enter month (1-12): ");
-            
-            // Show the summary for this month
             budgetManager.ShowMonthlyCategorySummary(year, month);
         }
-
-        // Handle setting the monthly budget limit
+        // هنا نخلي المستخدم يحدد كم يصرف بالشهر
         private static void HandleSetBudgetLimit()
         {
             InputHelper.ClearScreen();
             Console.WriteLine("=== SET MONTHLY BUDGET LIMIT ===");
             Console.WriteLine();
-            
-            // Show current budget limit if there is one
             decimal currentLimit = budgetManager.GetCurrentBudgetLimit();
             if (currentLimit > 0)
             {
                 Console.WriteLine($"Current monthly budget limit: ${currentLimit:F2}");
                 Console.WriteLine();
             }
-            
-            // Get new budget limit from user
+            // نخلي المستخدم يكتب كم يبي يحدد ميزانيته
             decimal newBudgetLimit = InputHelper.GetValidAmount("Enter monthly budget limit ($): ");
-            
-            // Set the new budget limit
             budgetManager.SetMonthlyBudget(newBudgetLimit);
         }
-
-        // Handle viewing current balance
+        // نوري المستخدم رصيده الحالي
         private static void HandleViewCurrentBalance()
         {
             InputHelper.ClearScreen();
             Console.WriteLine("=== CURRENT BALANCE ===");
             Console.WriteLine();
             
-            // Show the current balance summary
             budgetManager.ShowCurrentBalance();
         }
 
-        // Handle viewing all transactions
+        // نعرض كل العمليات اللي صارت
         private static void HandleViewAllTransactions()
         {
             InputHelper.ClearScreen();
             Console.WriteLine("=== ALL TRANSACTIONS ===");
             Console.WriteLine();
             
-            // Show all transactions
             budgetManager.ShowAllTransactions();
         }
 
-        // Handle saving data and exiting
+        // نحفظ البيانات ونقفل البرنامج
         private static void HandleSaveAndExit()
         {
             InputHelper.ClearScreen();
             Console.WriteLine("=== SAVING AND EXITING ===");
             Console.WriteLine();
-            
-            // Ask if user wants to create a backup
+
+            // نشيك إذا حاب يحفظ نسخة قبل يطلع
             bool createBackup = InputHelper.GetYesNoAnswer("Would you like to create a backup before saving?");
-            
+
             if (createBackup == true)
             {
                 budgetManager.CreateDataBackup();
             }
-            
-            // Save all current data
+
             Console.WriteLine("Saving your budget data...");
             budgetManager.SaveAllData();
-            
+
             Console.WriteLine("All data saved successfully!");
         }
+        // نهاية البرنامج
 
-        // Display goodbye message when program ends
-        private static void ShowGoodbyeMessage()
+        private static void ShowGoodbyeMessage() 
         {
             Console.WriteLine("THANK YOU FOR USING BUDGET TRACKER!");
             Console.WriteLine("Press any key to exit...");
