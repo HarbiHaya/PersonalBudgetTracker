@@ -5,3 +5,27 @@ obj/
 *.suo
 *.csproj.user
 .DS_Store
+# Build outputs
+bin/
+obj/
+
+# Visual 
+
+
+.vs/
+*.user
+*.suo
+
+# Rider / JetBrains
+.idea/
+*.iml
+
+# VS Code (ignore unless you want to share settings)
+.vscode/
+
+# Other junk
+*.db
+*.cache
+*.log
+*.tmp
+codechunks-db/
