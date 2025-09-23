@@ -1,10 +1,8 @@
-/*
- * FileHelper.cs - File Operations
- * Developer 2: File Input/Output and Data Storage
- * 
- * Responsibility: Handle all file operations for saving and loading transaction data
- * This class manages reading from and writing to CSV files
- */
+// Haya Alharbi
+// 2307568
+
+// this class is responsible for all file operations: creating, reading, writing, and backing up the budget data file
+// it ensures data saving and loading between sessions
 
 using System;
 using System.IO;
@@ -13,29 +11,26 @@ namespace PersonalBudgetTracker
 {
     public class FileHelper
     {
-        // File path for storing transactions
- 
-        private string path;
+        private string dataFileName;
+        private string dataFolderPath; // needed for making backups files later in the right folder 
+        private string fullFilePath; // combining the folder path and file name
 
-        // Constructor - sets up the file paths
         public FileHelper()
         {
-
-            path = "BudgetData/budget_data.csv";
+            dataFileName = "budget_data.csv";
+            dataFolderPath = "BudgetData";
+            fullFilePath = Path.Combine(dataFolderPath, dataFileName);
             
-            // Make sure the data folder exists
-            CreateDataFolder();
+            CreateDataFolder(); // start by making sure the folder exists
         }
 
-        // Create the folder for storing data files if it doesn't exist
         private void CreateDataFolder()
         {
             try
             {
-                // Check if folder exists, if not create it
-                if (!Directory.Exists(path))
+                if (!Directory.Exists(fullFilePath))
                 {
-                    Directory.CreateDirectory(path);
+                    Directory.CreateDirectory(fullFilePath);
                     Console.WriteLine("Created data folder for storing budget information.");
                 }
             }
@@ -44,16 +39,14 @@ namespace PersonalBudgetTracker
                 Console.WriteLine($"Error creating data folder: {error.Message}");
             }
         }
-
-        // Create a new CSV file with column headers
+        // create a csv file if it does not exist
         public void CreateNewFile()
         {
             try
             {
-                // Create file and write the header row
-                using (StreamWriter writer = new StreamWriter(path))
+                using (StreamWriter writer = new StreamWriter(fullFilePath))
                 {
-                    writer.WriteLine("Date,Type,Description,Amount,Category");
+                    writer.WriteLine("Date,Type,Description,Amount,Category"); // table header
                 }
                 Console.WriteLine("Created new budget data file.");
             }
@@ -63,31 +56,29 @@ namespace PersonalBudgetTracker
             }
         }
 
-        // Load all transactions from the CSV file
+        // load all transactions 
         public Transaction[] LoadAllTransactions(out int numberOfTransactions)
         {
-            // Create array to store transactions (maximum 500 for simplicity)
+            // an array to store transactions (max of 500)
             Transaction[] loadedTransactions = new Transaction[500];
             numberOfTransactions = 0;
 
             try
             {
-                // Check if file exists
-                if (!File.Exists(path))
+                if (!File.Exists(fullFilePath))
                 {
                     Console.WriteLine("No existing data file found. Starting with empty budget.");
                     return loadedTransactions;
                 }
 
-                // Read all lines from the file
-                string[] fileLines = File.ReadAllLines(path);
+                string[] fileLines = File.ReadAllLines(fullFilePath); // read all the lines
 
-                // Process each line (skip the first line which contains headers)
-                for (int i = 1; i < fileLines.Length; i++)
+                
+                for (int i = 1; i < fileLines.Length; i++) // read line by line, start from 1 to skip header
                 {
                     try
                     {
-                        // Convert the line to a transaction
+                        // use of convert method (below in this class) to convert the line to a transaction
                         Transaction loadedTransaction = ConvertLineToTransaction(fileLines[i]);
                         
                         if (loadedTransaction != null)
@@ -112,35 +103,32 @@ namespace PersonalBudgetTracker
             return loadedTransactions;
         }
 
-        // Convert a CSV line into a Transaction object
+        // the method to convert a csv line into an object from type Transaction
         private Transaction ConvertLineToTransaction(string csvLine)
         {
-            // Check if line is empty
             if (string.IsNullOrEmpty(csvLine))
             {
                 return null;
             }
 
-            // Split the line by commas           //         parts[0] = date   part[1]  part[2 ] 
-            string[] parts = csvLine.Split(','); // line[1] [ 8/6/2023 , income , eee      , ee ,ee]
+            // Split the line by commas           //         parts[0] = date   part[1]  part[2] 
+            string[] parts = csvLine.Split(','); // line[1]=[ 8/6/2023 , income , eee      , ee ,ee]
             
-            // Make sure we have all required parts
-            if (parts.Length != 5)
+            if (parts.Length != 5) // 5 is the number of attributes in the csv file
             {
                 return null;
             }
 
             try
             {
-                // Extract each piece of information
-                DateTime date = DateTime.ParseExact(parts[0], "dd/MM/yyyy", null); 
+                DateTime date = DateTime.ParseExact(parts[0], "dd/MM/yyyy", null); // datetime format for parsing
                 string type = parts[1];
                 string description = parts[2];
                 decimal amount = decimal.Parse(parts[3]);  
                 string category = parts[4];
 
-                // Create the right type of transaction
-                if (type == "Income")
+                // create transaction object based on type 
+                if (type == "Income") 
                 {
                     return new Income(date, description, amount, category);
                 }
@@ -162,14 +150,13 @@ namespace PersonalBudgetTracker
         {
             try
             {
-                // Open file for writing
-                using (StreamWriter writer = new StreamWriter(path)) // i/o stream
+                // open file for writing mode
+                using (StreamWriter writer = new StreamWriter(fullFilePath)) // i/o stream
                 {
-                    // Write header row first
+                    // header row first
                     writer.WriteLine("Date,Type,Description,Amount,Category");
 
-                    // Write each transaction
-                    for (int i = 0; i < numberOfTransactions; i++)
+                    for (int i = 0; i < numberOfTransactions; i++) // loop through all transactions to write them
                     {
                         if (transactions[i] != null)
                         {
@@ -186,12 +173,12 @@ namespace PersonalBudgetTracker
             }
         }
 
-        // Check if the data file exists and is accessible
+        // check if the file exists
         public bool DataFileExists()
         {
             try
             {
-                return File.Exists(path);
+                return File.Exists(fullFilePath); // returns true if file exists, false otherwise
             }
             catch
             {
@@ -202,17 +189,16 @@ namespace PersonalBudgetTracker
         // Get the full path to the data file (useful for debugging)
         public string GetDataFilePath()
         {
-            return path;
+            return fullFilePath;
         }
+        public void DeleteDataFile()         // Delete the data file used later in clear all data option
 
-        // Delete the data file (useful for starting fresh)
-        public void DeleteDataFile()
         {
             try
             {
-                if (File.Exists(path))
+                if (File.Exists(fullFilePath))
                 {
-                    File.Delete(path);
+                    File.Delete(fullFilePath);
                     Console.WriteLine("Data file deleted successfully.");
                 }
                 else
@@ -226,22 +212,21 @@ namespace PersonalBudgetTracker
             }
         }
 
-        // Create a backup copy of the current data
-        
+        // create a backup copy of the current data file 
         public void CreateBackup(Transaction[] transactions, int numberOfTransactions)
         {
             try
             {
-                // Save current data first, then backup
+                // save current data first then backup
                 SaveAllTransactions(transactions, numberOfTransactions);
                 
-                if (File.Exists(path))
+                if (File.Exists(fullFilePath))
                 {
-                    string backupPath = Path.Combine(path, $"backup_{DateTime.Now:yyyyMMdd_HHmmss}.csv");
-                    File.Copy(path, backupPath);
-                    Console.WriteLine($"Backup created: {backupPath}");
+                string backupPath = Path.Combine(dataFolderPath, $"backup_{DateTime.Now:yyyyMMdd_HHmmss}.csv"); // new backup file name 
+                File.Copy(fullFilePath, backupPath);
+                Console.WriteLine($"Backup created: {backupPath}");
                 }
-                else
+                    else
                 {
                     Console.WriteLine("No data file found to backup.");
                 }

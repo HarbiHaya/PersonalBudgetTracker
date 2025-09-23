@@ -1,5 +1,5 @@
 using System;
-// Shahad Alamoudi 
+// Shahad Alamoudi
 namespace PersonalBudgetTracker
 {
     public class InputHelper
@@ -193,7 +193,7 @@ namespace PersonalBudgetTracker
             return 0;
         }
 
-
+         
         // Get a valid year 
         public static int GetValidYear(string promptMessage)
         {
