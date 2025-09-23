@@ -369,7 +369,7 @@ namespace PersonalBudgetTracker
         // Create a backup of current data
         public void CreateDataBackup()
         {
-            fileHelper.CreateBackup();
+            fileHelper.CreateBackup(allTransactions, transactionCount);
         }
 
         // To Clear all data 
