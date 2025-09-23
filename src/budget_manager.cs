@@ -6,7 +6,7 @@
  */
 
 using System;
-
+using System.Transactions;
 namespace PersonalBudgetTracker
 {
     public class BudgetManager
@@ -239,7 +239,7 @@ namespace PersonalBudgetTracker
         // Check if we're over budget for a specific month
         private void CheckBudgetForMonth(int year, int month)
         {
-            // Only check if we have a budget set
+            // for chicking if we have budget limit set
             if (monthlyBudgetLimit <= 0)
             {
                 return;
@@ -287,15 +287,19 @@ namespace PersonalBudgetTracker
             decimal totalIncome = 0;
             decimal totalExpenses = 0;
 
-            // Add up all income and expenses
+            // Loop through all transactions that have been added so far
             for (int i = 0; i < transactionCount; i++)
             {
+                // Get the current transaction from the array
                 Transaction currentTransaction = allTransactions[i];
-                
-                if (currentTransaction.TransactionType == "Income")
+
+
+                // If the transaction is of type "Income", add its amount to the total income
+                if (currentTransaction.TransactionType == "Income") 
                 {
                     totalIncome = totalIncome + currentTransaction.Amount;
                 }
+                // If the transaction is of type "Expense", add its amount to the total expenses
                 else if (currentTransaction.TransactionType == "Expense")
                 {
                     totalExpenses = totalExpenses + currentTransaction.Amount;
@@ -323,8 +327,7 @@ namespace PersonalBudgetTracker
                 Console.WriteLine("Your balance is exactly zero.");
             }
         }
-
-        // Show all transactions (for debugging or full review)
+        // Show all transactions 
         public void ShowAllTransactions()
         {
             Console.WriteLine("\n=== ALL TRANSACTIONS ===");
@@ -369,7 +372,7 @@ namespace PersonalBudgetTracker
             fileHelper.CreateBackup();
         }
 
-        // Clear all data (start fresh)
+        // To Clear all data 
         public bool ClearAllData()
         {
             // Reset the arrays and counters

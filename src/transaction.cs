@@ -1,6 +1,6 @@
 /*
  * Shahad Abdullah
- * This file contains the base Transaction class and its derived Income/Expense classes
+ * This contains the base Transaction class and its derived Income/Expense classes
  */
 
 using System;
