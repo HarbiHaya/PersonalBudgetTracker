@@ -28,9 +28,9 @@ namespace PersonalBudgetTracker
         {
             try
             {
-                if (!Directory.Exists(fullFilePath))
+                if (!Directory.Exists(dataFolderPath))
                 {
-                    Directory.CreateDirectory(fullFilePath);
+                    Directory.CreateDirectory(dataFolderPath);
                     Console.WriteLine("Created data folder for storing budget information.");
                 }
             }
