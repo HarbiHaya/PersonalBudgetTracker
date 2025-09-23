@@ -44,7 +44,7 @@ namespace PersonalBudgetTracker
             {
                 ShowMainMenu();
 
-                int userChoice = InputHelper.GetValidMenuChoice("Enter your choice (1-8): ", 1, 8);
+                int userChoice = InputHelper.GetValidMenuChoice("Enter your choice (1-9): ", 1, 9);
                 
                 ProcessMenuChoice(userChoice);
                 
@@ -74,7 +74,8 @@ namespace PersonalBudgetTracker
             Console.WriteLine("5. Set Monthly Budget Limit");
             Console.WriteLine("6. View Current Balance");
             Console.WriteLine("7. View All Transactions ");
-            Console.WriteLine("8. Save and Exit ");
+            Console.WriteLine("8. Clear all data ");
+            Console.WriteLine("9. Save and Exit ");
             Console.WriteLine("---------------------------------------");
         }
         // اسوي الشي الي طلبه المستخدم الي اختاره من القائمه 
@@ -109,6 +110,10 @@ namespace PersonalBudgetTracker
                 HandleViewAllTransactions();
             }
             else if (choice == 8)
+            {
+                budgetManager.ClearAllData();
+            }
+            else if (choice == 9)
             {
                 HandleSaveAndExit();
             }
@@ -200,6 +205,24 @@ namespace PersonalBudgetTracker
             Console.WriteLine();
             
             budgetManager.ShowAllTransactions();
+        }
+        private static void HandleClearAllData()
+        {
+            InputHelper.ClearScreen();
+            Console.WriteLine("=== CLEAR ALL DATA ===");
+            Console.WriteLine();
+
+            bool confirmClear = InputHelper.GetYesNoAnswer("Are you sure you want to clear all data? This action cannot be undone.");
+
+            if (confirmClear == true)
+            {
+                budgetManager.ClearAllData();
+                Console.WriteLine("All data has been cleared.");
+            }
+            else
+            {
+                Console.WriteLine("Clear data operation cancelled.");
+            }
         }
 
         // نحفظ البيانات ونقفل البرنامج

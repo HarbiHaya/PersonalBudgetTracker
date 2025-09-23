@@ -13,17 +13,15 @@ namespace PersonalBudgetTracker
 {
     public class FileHelper
     {
-        // File name and path for storing transactions
-        private string dataFileName;
-        private string dataFolderPath;
-        private string fullFilePath;
+        // File path for storing transactions
+ 
+        private string path;
 
         // Constructor - sets up the file paths
         public FileHelper()
         {
-            dataFileName = "budget_data.csv";
-            dataFolderPath = "BudgetData";
-            fullFilePath = Path.Combine(dataFolderPath, dataFileName);
+
+            path = "BudgetData/budget_data.csv";
             
             // Make sure the data folder exists
             CreateDataFolder();
@@ -35,9 +33,9 @@ namespace PersonalBudgetTracker
             try
             {
                 // Check if folder exists, if not create it
-                if (!Directory.Exists(dataFolderPath))
+                if (!Directory.Exists(path))
                 {
-                    Directory.CreateDirectory(dataFolderPath);
+                    Directory.CreateDirectory(path);
                     Console.WriteLine("Created data folder for storing budget information.");
                 }
             }
@@ -53,7 +51,7 @@ namespace PersonalBudgetTracker
             try
             {
                 // Create file and write the header row
-                using (StreamWriter writer = new StreamWriter(fullFilePath))
+                using (StreamWriter writer = new StreamWriter(path))
                 {
                     writer.WriteLine("Date,Type,Description,Amount,Category");
                 }
@@ -75,14 +73,14 @@ namespace PersonalBudgetTracker
             try
             {
                 // Check if file exists
-                if (!File.Exists(fullFilePath))
+                if (!File.Exists(path))
                 {
                     Console.WriteLine("No existing data file found. Starting with empty budget.");
                     return loadedTransactions;
                 }
 
                 // Read all lines from the file
-                string[] fileLines = File.ReadAllLines(fullFilePath);
+                string[] fileLines = File.ReadAllLines(path);
 
                 // Process each line (skip the first line which contains headers)
                 for (int i = 1; i < fileLines.Length; i++)
@@ -165,7 +163,7 @@ namespace PersonalBudgetTracker
             try
             {
                 // Open file for writing
-                using (StreamWriter writer = new StreamWriter(fullFilePath)) // i/o stream
+                using (StreamWriter writer = new StreamWriter(path)) // i/o stream
                 {
                     // Write header row first
                     writer.WriteLine("Date,Type,Description,Amount,Category");
@@ -193,7 +191,7 @@ namespace PersonalBudgetTracker
         {
             try
             {
-                return File.Exists(fullFilePath);
+                return File.Exists(path);
             }
             catch
             {
@@ -204,7 +202,7 @@ namespace PersonalBudgetTracker
         // Get the full path to the data file (useful for debugging)
         public string GetDataFilePath()
         {
-            return fullFilePath;
+            return path;
         }
 
         // Delete the data file (useful for starting fresh)
@@ -212,9 +210,9 @@ namespace PersonalBudgetTracker
         {
             try
             {
-                if (File.Exists(fullFilePath))
+                if (File.Exists(path))
                 {
-                    File.Delete(fullFilePath);
+                    File.Delete(path);
                     Console.WriteLine("Data file deleted successfully.");
                 }
                 else
@@ -229,14 +227,18 @@ namespace PersonalBudgetTracker
         }
 
         // Create a backup copy of the current data
-        public void CreateBackup()
+        
+        public void CreateBackup(Transaction[] transactions, int numberOfTransactions)
         {
             try
             {
-                if (File.Exists(fullFilePath))
+                // Save current data first, then backup
+                SaveAllTransactions(transactions, numberOfTransactions);
+                
+                if (File.Exists(path))
                 {
-                    string backupPath = Path.Combine(dataFolderPath, $"backup_{DateTime.Now:yyyyMMdd_HHmmss}.csv"); 
-                    File.Copy(fullFilePath, backupPath);
+                    string backupPath = Path.Combine(path, $"backup_{DateTime.Now:yyyyMMdd_HHmmss}.csv");
+                    File.Copy(path, backupPath);
                     Console.WriteLine($"Backup created: {backupPath}");
                 }
                 else
@@ -248,6 +250,6 @@ namespace PersonalBudgetTracker
             {
                 Console.WriteLine($"Error creating backup: {error.Message}");
             }
-        }
+}
     }
 }
