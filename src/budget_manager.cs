@@ -388,7 +388,6 @@ namespace PersonalBudgetTracker
             // Delete the data file
             fileHelper.DeleteDataFile();
             
-            Console.WriteLine("All data cleared successfully.");
             return true;
         }
     }

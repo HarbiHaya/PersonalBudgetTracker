@@ -48,12 +48,12 @@ namespace PersonalBudgetTracker
             {
                 ShowMainMenu();
 
-                int userChoice = InputHelper.GetValidMenuChoice("Enter your choice (1-9): ", 1, 9);
+                int userChoice = InputHelper.GetValidMenuChoice("Enter your choice (1-10): ", 1, 10);
                 
                 ProcessMenuChoice(userChoice);
                 
-                // هنا اليوزر ادا اختار 8 يخرج
-                if (userChoice == 8)
+                // هنا اليوزر ادا اختار 10 يخرج
+                if (userChoice == 10)
                 {
                     userWantsToExit = true;
                 }
@@ -78,8 +78,9 @@ namespace PersonalBudgetTracker
             Console.WriteLine("5. Set Monthly Budget Limit");
             Console.WriteLine("6. View Current Balance");
             Console.WriteLine("7. View All Transactions ");
-            Console.WriteLine("8. Clear all data ");
-            Console.WriteLine("9. Save and Exit ");
+            Console.WriteLine("8. Clear and exit ");
+            Console.WriteLine("9. Save all data");
+            Console.WriteLine("10.Backup, Exit");
             Console.WriteLine("---------------------------------------");
         }
         // اسوي الشي الي طلبه المستخدم الي اختاره من القائمه 
@@ -115,11 +116,15 @@ namespace PersonalBudgetTracker
             }
             else if (choice == 8)
             {
-                budgetManager.ClearAllData();
+                HandleClearAllData();
             }
             else if (choice == 9)
             {
-                HandleSaveAndExit();
+                HandleSave();
+            }
+            else if (choice == 10)
+            {
+                HandleExit();
             }
         }
         // المستخدم يدخل معلومات الدخل
@@ -195,7 +200,6 @@ namespace PersonalBudgetTracker
         private static void HandleViewCurrentBalance()
         {
             InputHelper.ClearScreen();
-            Console.WriteLine("=== CURRENT BALANCE ===");
             Console.WriteLine();
             
             budgetManager.ShowCurrentBalance();
@@ -205,7 +209,6 @@ namespace PersonalBudgetTracker
         private static void HandleViewAllTransactions()
         {
             InputHelper.ClearScreen();
-            Console.WriteLine("=== ALL TRANSACTIONS ===");
             Console.WriteLine();
             
             budgetManager.ShowAllTransactions();
@@ -220,9 +223,7 @@ namespace PersonalBudgetTracker
 
             if (confirmClear == true)
             {
-                budgetManager.ClearAllData();
-                Console.WriteLine("All data has been cleared.");
-            }
+                budgetManager.ClearAllData();            }
             else
             {
                 Console.WriteLine("Clear data operation cancelled.");
@@ -230,14 +231,25 @@ namespace PersonalBudgetTracker
         }
 
         // نحفظ البيانات ونقفل البرنامج
-        private static void HandleSaveAndExit()
+        private static void HandleSave()
         {
             InputHelper.ClearScreen();
-            Console.WriteLine("=== SAVING AND EXITING ===");
+            Console.WriteLine("=== SAVING ===");
             Console.WriteLine();
 
-            // نشيك إذا حاب يحفظ نسخة قبل يطلع
-            bool createBackup = InputHelper.GetYesNoAnswer("Would you like to create a backup before saving?");
+            Console.WriteLine("Saving your budget data...");
+            budgetManager.SaveAllData();
+
+            Console.WriteLine("All data saved successfully!");
+            
+        }
+        private static void HandleExit()
+        {
+            InputHelper.ClearScreen();
+            Console.WriteLine("=== EXITING ===");
+            Console.WriteLine();
+
+            bool createBackup = InputHelper.GetYesNoAnswer("Would you like to create a backup before exiting?");
 
             if (createBackup == true)
             {
@@ -245,10 +257,9 @@ namespace PersonalBudgetTracker
             }
 
             Console.WriteLine("Saving your budget data...");
-            budgetManager.SaveAllData();
 
-            Console.WriteLine("All data saved successfully!");
         }
+
         // نهاية البرنامج
 
         private static void ShowGoodbyeMessage() 
