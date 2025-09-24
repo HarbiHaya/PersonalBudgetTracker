@@ -1,8 +1,11 @@
-// Haya Alharbi
-// 2307568
-
-// this class is handling all file operations: creating, reading, writing, and backing up the budget data file
-// it ensures data saving and loading between sessions
+/*
+Haya Sultan Alharbi
+2307568
+Section [AA]
+COCS-308 | Assignment 1
+this class is handling all file operations: creating, reading, writing, and backing up the budget data file
+it ensures data saving and loading between sessions
+ */
 
 using System;
 using System.IO;

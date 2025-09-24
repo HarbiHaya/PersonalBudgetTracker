@@ -1,8 +1,11 @@
 /*
- Jana Ashraf Alharbi
- 2305762
- Section [AA]
-
+Jana Ashraf Alharbi
+2305762
+Section [AA]
+COCS-308 | Assignment 1
+this class manages the core functionality of the personal budget tracker application
+it allows users to add income and expense transactions, view summaries, set budgets, and save/load data
+it handles all user interactions and data processing
  */
 
 using System;
@@ -64,6 +67,7 @@ namespace PersonalBudgetTracker
             transactionCount++;
             
             Console.WriteLine($"Added income: ${amount:F2} for {description}");
+            ShowCurrentBalance();
         }
 
         // Add a new expense transaction
@@ -87,6 +91,7 @@ namespace PersonalBudgetTracker
             
             // Check if this expense puts us over budget for the month
             CheckBudgetForMonth(date.Year, date.Month);
+            ShowCurrentBalance();
         }
 
         // Show all transactions within a specific date range

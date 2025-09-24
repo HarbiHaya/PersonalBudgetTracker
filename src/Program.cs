@@ -1,8 +1,12 @@
-﻿//mayar abdullah mahfouz
-//id:2306450
-//هدا main حق الكود 
-//وظيفه الملف هدا يعرض واجهه المستخدم ويستقبل الاوامر من المستخدم وينفذ العمليات 
-
+﻿/*
+Mayar Abdullah Mahfouz
+2306450
+Section [AA]
+COCS-308 | Assignment 1
+هدا main حق الكود 
+وظيفه الملف هدا يعرض واجهه المستخدم ويستقبل الاوامر من المستخدم وينفذ العمليات 
+ */
+ 
 using System;
 
 namespace PersonalBudgetTracker

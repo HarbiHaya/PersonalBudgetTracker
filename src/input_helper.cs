@@ -1,5 +1,13 @@
+/*
+Shahad Khaled Alamoudi 
+2309063
+Section [AA]
+COCS-308 | Assignment 1
+this class is responsible for handling and validating user inputs
+ */
+ 
+
 using System;
-// Shahad Alamoudi
 namespace PersonalBudgetTracker
 {
     public class InputHelper

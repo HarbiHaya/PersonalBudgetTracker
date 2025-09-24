@@ -1,8 +1,10 @@
 /*
- * Shahad Abdullah
- * This contains the base Transaction class and its derived Income/Expense classes
+Shahad Abdullah
+2207358
+Section [AA]
+COCS-308 | Assignment 1
+ This contains the base Transaction class and its derived Income/Expense classes
  */
-
 using System;
 
 namespace PersonalBudgetTracker
