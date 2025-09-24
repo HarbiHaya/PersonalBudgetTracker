@@ -6,56 +6,63 @@ namespace PersonalBudgetTracker
     {
         //Ask the user to enter a date in dd/MM/yyyy format
         //and keeps asking until a valid date is entered
-        public static DateTime GetValidDate(string promptMessage)
+        public static DateTime GetValidDate(string message)
+{
+        DateTime validDate;
+        bool inputIsValid = false;
+
+        Console.Write(message);
+
+        while (inputIsValid == false)
         {
-            DateTime validDate;
-            bool inputIsValid = false;
-
-            
-            Console.Write(promptMessage);
-
-            while (inputIsValid == false)
+            try
             {
-                try
+                string userInput = Console.ReadLine();
+                
+                if (string.IsNullOrEmpty(userInput))
                 {
-                    string userInput = Console.ReadLine();
-
-                    if (string.IsNullOrEmpty(userInput))
-                    {
-                        Console.Write("Please enter a date. Try again: ");
-                        continue;
-                    }
-
-                    // convert the input text to a date in dd/MM/yyyy format
-                    validDate = DateTime.ParseExact(userInput, "dd/MM/yyyy", null);
-
-                    //At this point, the entered date is valid
-                    inputIsValid = true;
-                    return validDate;
+                    Console.Write("Please enter a date. Try again: ");
+                    continue;
                 }
-                catch (FormatException)
+
+                // Parse the date in dd/MM/yyyy format
+                validDate = DateTime.ParseExact(userInput, "dd/MM/yyyy", null);
+                
+                // NOW validate the year component after successful parsing
+                if (validDate.Year < 2000 || validDate.Year > 2030)
                 {
-                    Console.Write("Date format is wrong. Please use dd/MM/yyyy (e.g., 05/02/2023): ");
+                    Console.Write("Please enter a year between 2000 and 2030 (dd/MM/yyyy): ");
+                    continue;
                 }
-                catch (Exception)
-                {
-                    Console.Write("Something went wrong. Please enter date as dd/MM/yyyy: ");
-                }
+
+                // If we reach here, the date is valid format, reasonable year, and reasonable future date
+                inputIsValid = true;
+                return validDate;
             }
-            return DateTime.Now; 
+            catch (FormatException)
+            {
+                Console.Write("Date format is wrong. Please use dd/MM/yyyy (e.g., 25/12/2023): ");
+            }
+            catch (Exception)
+            {
+                Console.Write("Something went wrong. Please enter date as dd/MM/yyyy: ");
+            }
         }
+
+        return DateTime.Now; // This line should never be reached
+    }
 
 
 
 
         // Asks the user to enter a valid decimal amount
         // and keeps trying until the input is correct
-        public static decimal GetValidAmount(string promptMessage)
+        public static decimal GetValidAmount(string message)
         {
             decimal validAmount;
             bool inputIsValid = false;
 
-            Console.Write(promptMessage);
+            Console.Write(message);
 
             while (inputIsValid == false)
             {
@@ -104,12 +111,12 @@ namespace PersonalBudgetTracker
 
         //Asks the user to enter non-empty text
         //and keeps trying until valid input is provided
-        public static string GetValidText(string promptMessage)
+        public static string GetValidText(string message)
         {
             string validText;
             bool inputIsValid = false;
 
-            Console.Write(promptMessage);
+            Console.Write(message);
 
             while (inputIsValid == false)
             {
@@ -142,12 +149,12 @@ namespace PersonalBudgetTracker
 
 
         // Check if the user's choice is in range
-        public static int GetValidMenuChoice(string promptMessage, int lowestNumber, int highestNumber) // 
+        public static int GetValidMenuChoice(string message, int lowestNumber, int highestNumber) // 
         {
             int validChoice;
             bool inputIsValid = false;
 
-            Console.Write(promptMessage);
+            Console.Write(message);
 
             while (inputIsValid == false)
             {
@@ -195,10 +202,10 @@ namespace PersonalBudgetTracker
 
          
         // Get a valid year 
-        public static int GetValidYear(string promptMessage)
+        public static int GetValidYear(string message)
         {
            
-            Console.Write(promptMessage);
+            Console.Write(message);
 
             while (true)
             {
@@ -211,8 +218,15 @@ namespace PersonalBudgetTracker
                         Console.Write("Please enter a valid year: ");
                         continue;
                     }
-
+                    
                     int year = int.Parse(userInput);
+
+                    // Check if the year is in a the range 2000-2030
+                    if (year < 2000 || year > 2030)
+                    {
+                        Console.Write("Please enter a year between 2000 and 2030: ");
+                        continue;
+                    }
 
                     return year;
                 }
@@ -225,9 +239,9 @@ namespace PersonalBudgetTracker
         }
 
         // Get a valid month from the user (1-12)
-        public static int GetValidMonth(string promptMessage)
+        public static int GetValidMonth(string message)
         {
-            Console.Write(promptMessage);
+            Console.Write(message);
 
             while (true)
             {
@@ -273,7 +287,7 @@ namespace PersonalBudgetTracker
                     continue;
                 }
 
-                // Convert to lowercase and check first character 
+                // Convert to lowercase and trim spaces 
                 string answer = userInput.ToLower().Trim(); 
                 
                 if (answer == "y" || answer == "yes")
