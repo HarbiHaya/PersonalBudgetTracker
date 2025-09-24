@@ -78,9 +78,9 @@ namespace PersonalBudgetTracker
             Console.WriteLine("5. Set Monthly Budget Limit");
             Console.WriteLine("6. View Current Balance");
             Console.WriteLine("7. View All Transactions ");
-            Console.WriteLine("8. Clear and exit ");
+            Console.WriteLine("8. Clear all data");
             Console.WriteLine("9. Save all data");
-            Console.WriteLine("10.Backup, Exit");
+            Console.WriteLine("10. Backup, Exit");
             Console.WriteLine("---------------------------------------");
         }
         // اسوي الشي الي طلبه المستخدم الي اختاره من القائمه 
